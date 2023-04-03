@@ -15,12 +15,8 @@ class IndexController extends Controller{
 	//title
 	public function indexAction(){
 		$this->_view->_title	= 'DK Shop Store';
-		$this->_view->theCategory		= $this->_model->listCategory($this->_arrParam, array('task' => 'list-Nam'));
-		$this->_view->theCategoryNu		= $this->_model->listCategory($this->_arrParam, array('task' => 'list-Nu'));
-		$this->_view->theCategoryRss	= $this->_model->listCategory($this->_arrParam, array('task' => 'list-Rss'));
 		$this->_view->theProminent		= $this->_model->listItem($this->_arrParam, array('task' => 'product-special'));
 		$this->_view->theProductDesc	= $this->_model->listItem($this->_arrParam, array('task' => 'product-new'));
-		$this->_view->theProductRand	= $this->_model->listProductRand($this->_arrParam);
 		$this->_view->theListNews		= $this->_model->listNews($this->_arrParam);
 		$this->_view->render('index/index');
 	}
@@ -62,36 +58,10 @@ class IndexController extends Controller{
 	}
 
 	public function loginAction(){
-		$userInfo	= Session::get('user');
-		if(isset($userInfo['login'] ) && $userInfo['login'] == true && $userInfo['time'] + TIME_LOGIN >= time()){
-			URL::redirect('default', 'user', 'index', null, 'my-account.html');
-		}
-	
-		$this->_view->_title 		= 'Login';
-	
-		if(isset($this->_arrParam['form']['token']) > 0){
-			$validate	= new Validate($this->_arrParam['form']);
-			$email		= $this->_arrParam['form']['email'];
-			$password	= md5($this->_arrParam['form']['password']);
-			$query		= "SELECT `id` FROM `user` WHERE `email` = '$email' AND `password` = '$password'";
-			$validate->addRule('email', 'existRecord', array('database' => $this->_model, 'query' => $query));
-			$validate->run();
-				
-			if($validate->isValid()==true){
-				$infoUser		= $this->_model->infoItem($this->_arrParam);
-				$arraySession	= array(
-						'login'		=> true,
-						'info'		=> $infoUser,
-						'time'		=> time(),
-						'group_acp'	=> $infoUser['group_acp']
-				);
-				Session::set('user', $arraySession);
-				URL::redirect('default', 'user', 'index', null, 'my-account.html');
-			}else{
-				$this->_view->errors	= $validate->showErrorsPublic();
-			}
-		}
-	
-		$this->_view->render('index/login');
+
+		$this->_view->render('index/category_products');
+	}
+	public function CategoryAction(){	
+		$this->_view->render('index/category');
 	}
 }

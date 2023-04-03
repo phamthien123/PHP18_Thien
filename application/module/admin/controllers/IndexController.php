@@ -72,4 +72,5 @@ class IndexController extends Controller{
 		Session::delete('user');
 		URL::redirect('admin', 'index', 'login');
 	}
+
 }

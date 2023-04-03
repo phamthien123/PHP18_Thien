@@ -7,14 +7,24 @@ class Bootstrap{
 	public function init(){
 		$this->setParam();
 		
-		$controllerName	= ucfirst($this->_params['controller']) . 'Controller';
+		$this->_params['controller'] = strtolower($this->_params['controller']);
+		$controllerParams = explode("-", $this->_params['controller']);
+		if(count($controllerParams) > 1){
+			foreach ($controllerParams as $key => $value) {
+				$controllerParams[$key] = ucfirst($value);
+			}
+			$controllerName = implode("", $controllerParams). 'Controller';
+		}
+		else{
+			$controllerName = ucfirst($this->_params['controller']).'Controller';
+		}
+
 		$filePath	= MODULE_PATH . $this->_params['module'] . DS . 'controllers' . DS . $controllerName . '.php';
-		
 		if(file_exists($filePath)){
 			$this->loadExistingController($filePath, $controllerName);
 			$this->callMethod();
 		}else{
-			URL::redirect('shop', 'index', 'notice', array('type' => 'not-url'));
+			URL::redirect('default', 'index', 'notice', array('type' => 'not-url'));
 		}
 	}
 	

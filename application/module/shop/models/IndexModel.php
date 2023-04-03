@@ -53,32 +53,6 @@ class IndexModel extends Model
 		}
 	}
 
-	public function listCategory($arrParam, $option = null){
-		if($option['task'] == 'list-Nam'){
-			$query[]	= "SELECT `name`";
-			$query[]	= "FROM " . TBL_CATEGORY . "";
-	
-			$query		= implode(" ", $query);
-			$result		= $this->fetchAll($query);
-			return $result;
-		}
-		if($option['task'] == 'list-Nu'){
-			$query[]	= "SELECT `name`";
-			$query[]	= "FROM " . TBL_CATEGORYNU . "";
-		
-			$query		= implode(" ", $query);
-			$result		= $this->fetchAll($query);
-			return $result;
-		}
-		if($option['task'] == 'list-Rss'){
-			$query[]	= "SELECT `name`";
-			$query[]	= "FROM " . TBL_RSS . "";
-		
-			$query		= implode(" ", $query);
-			$result		= $this->fetchAll($query);
-			return $result;
-		}
-	}
 	public function listItem($arrParam, $option = null){
 		if($option['task'] == 'product-special'){
 			$query[]	= "SELECT `name`,`price`,`picture`,`sale_off`";
@@ -98,16 +72,6 @@ class IndexModel extends Model
 			$result		= $this->fetchAll($query);
 			return $result;
 		}
-	}
-
-	public function listProductRand($arrParam)
-	{
-		$query[]	= "SELECT *";
-		$query[]	= "FROM " . TBL_PRODUCTS . "";
-		$query[]	= "ORDER by RAND() LIMIT 4";
-		$query		= implode(" ", $query);
-		$result		= $this->fetchAll($query);
-		return $result;
 	}
 
 	public function listNews($arrParam)

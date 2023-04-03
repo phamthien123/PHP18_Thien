@@ -15,6 +15,7 @@ $arrMenuShop	= array(
 	array('link' => URL::createLink('admin', 'category', 'index'), 'name' => 'Category manager', 'image' => 'icon-48-category'),
 	array('link' => URL::createLink('admin', 'coupon', 'index'), 'name' => 'Coupon manager', 'image' => 'icon-48-article'),
 	array('link' => URL::createLink('admin', 'cart', 'index'), 'name' => 'Cart manager', 'image' => 'icon-48-user'),
+	array('link' => URL::createLink('admin', 'categorynu', 'index'), 'name' => 'categoryNu manager', 'image' => 'icon-48-user'),
 );
 foreach ($arrNews as $key => $value) {
 	$image	= $imageURL . '/header/' . $value['image'] . '.png';

@@ -33,6 +33,7 @@
 	define ('DB_PASS'			, '');						
 	define ('DB_NAME'			, 'bookstore');						
 	define ('DB_TABLE'			, 'group');			
+	
 
 	// ====================== DATABASE TABLE===========================
 	define ('TBL_GROUP'			, 'group');

@@ -91,12 +91,12 @@ class URL{
 		$value = URL::replaceSpace($value);
 		$value = URL::removeCircumflex($value);
 		
-		
 		return $value;
 	}
-	
-	
-	
-	
-	
+
 }
+	
+	
+	
+	
+	
