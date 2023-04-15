@@ -12,7 +12,7 @@ if (!empty($listRandom)) {
         $xhtmlRandom .= sprintf('<div class="col-lg-3 col-md-6">
         <div class="single-product">
           <div class="product-img">
-            <img class="img-fluid w-100" %s
+            <img class="img-fluid w-100" %s/>
             <div class="p_icon">
               <a href="single-product.php"><i class="ti-eye"></i></a>
               <a href="#"><i class="ti-heart"></i></a>

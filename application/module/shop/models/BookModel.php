@@ -40,13 +40,27 @@ class BookModel extends Model{
 			$result		= $this->fetchAll($query);
 			return $result;
 		}
+		if($option['task'] == 'books-detail'){
+			$catID		= $arrParam['category_id'];
+			$bookID		= $arrParam['book_id'];
+			
+			$query[]	= "SELECT `b`.`id`, `b`.`name`, `b`.`picture`, `b`.`description`, `b`.`category_id`,`b`.`price`,`b`.`sale_off`,`c`.`name` AS `category_name`";
+			$query[]	= "FROM `".TBL_PRODUCTS."` AS `b`, `".TBL_CATEGORY."` AS `c`";
+			$query[]	= "WHERE `b`.`status`  = 0 AND  `b`.`category_id` = '$catID' AND `b`.`id` <> '$bookID' AND `c`.`id` = `b`.`category_id`";
+			$query[]	= "ORDER BY `b`.`ordering` ASC";
+		
+			$query		= implode(" ", $query);
+			$result		= $this->fetchAll($query);
+			return $result;
+		}
 	}
 	
 	public function infoItem($arrParam, $option = null){
 		if($option['task'] == 'get-cat-name'){
-			$query	= "SELECT `name` FROM `".TBL_CATEGORY."` WHERE `id` = '" . $arrParam['category_id'] . "'";
-			$result	= $this->fetchRow($query);
-			return $result['name'];
+			$query[]	= "SELECT `name`,`id` FROM ".TBL_CATEGORY."";
+			$query		= implode(" ", $query);
+			$result		= $this->fetchAll($query);
+			return $result;
 		}
 		
 		if($option['task'] == 'book-info'){

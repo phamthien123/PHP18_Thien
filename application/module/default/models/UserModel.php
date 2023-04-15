@@ -44,7 +44,7 @@ class UserModel extends Model{
 				$query[]	= "WHERE `b`.`status`  = 1 AND  `c`.`id` = `b`.`category_id` AND `b`.`id` IN $ids";
 				$query[]	= "ORDER BY `b`.`ordering` ASC";
 		
-				$query		= implode(" ", $query);
+			echo $query		= implode(" ", $query);
 				$result		= $this->fetchAll($query);
 
 				foreach($result as $key => $value){

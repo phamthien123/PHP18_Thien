@@ -55,18 +55,22 @@ class IndexModel extends Model
 
 	public function listItem($arrParam, $option = null){
 		if($option['task'] == 'product-special'){
-			$query[]	= "SELECT `name`,`price`,`picture`,`sale_off`";
-			$query[]	= "FROM " . TBL_PRODUCTS . "";
-			$query[]	= "WHERE `prominent` = 1 LIMIT 6";
+			$query[]	= "SELECT `b`.`id`, `b`.`name`, `b`.`picture`, `b`.`sale_off`,`b`.`price`, `b`.`category_id`, `c`.`name` AS `category_name`";
+			$query[]	= "FROM `".TBL_PRODUCTS."` AS `b`, `".TBL_CATEGORY."` AS `c`";
+			$query[]	= "WHERE `b`.`status`  = 0  AND `prominent` = 1 AND `c`.`id` = `b`.`category_id`";
+			$query[]	= "ORDER BY `id` ASC";
+			$query[]	= "LIMIT 6";
 	
 			$query		= implode(" ", $query);
 			$result		= $this->fetchAll($query);
 			return $result;
 		}
 		if($option['task'] == 'product-new'){
-			$query[]	= "SELECT `name`,`price`,`picture`,`sale_off`";
-			$query[]	= "FROM " . TBL_PRODUCTS . "";
-			$query[]	= "ORDER by `id` DESC LIMIT 4";
+			$query[]	= "SELECT `b`.`id`, `b`.`name`, `b`.`picture`, `b`.`sale_off`,`b`.`price`, `b`.`category_id`, `c`.`name` AS `category_name`";
+			$query[]	= "FROM `".TBL_PRODUCTS."` AS `b`, `".TBL_CATEGORY."` AS `c`";
+			$query[]	= "WHERE `b`.`status`  = 0  AND `c`.`id` = `b`.`category_id`";
+			$query[]	= "ORDER BY `id` DESC";
+			$query[]	= "LIMIT 4";
 		
 			$query		= implode(" ", $query);
 			$result		= $this->fetchAll($query);

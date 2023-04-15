@@ -1,28 +1,29 @@
 <?php
 // $queryMen	= "SELECT `c`.`name` as `category_name` ,`p`.`id` FROM " . TBL_CATEGORY . " AS `c` LEFT JOIN " . TBL_PRODUCTS . " AS `p` on `c`.id = `p`.category_id AND `c`.id LIMIT 7";
 
-$queryMen	= "SELECT `name`,`id` FROM " . TBL_CATEGORY . "";
-$queryNu	= "SELECT `name` FROM " . TBL_CATEGORYNU . "";
-$queryNews	= "SELECT `category` FROM " . TBL_CATEGORYNEWS . "";
-$model 	= new Model();
+$queryMen    = "SELECT `name`,`id`,`fell` FROM " . TBL_CATEGORY . "";
+$queryNu    = "SELECT `name` FROM " . TBL_CATEGORYNU . "";
+$queryNews    = "SELECT `category` FROM " . TBL_CATEGORYNEWS . "";
+$model     = new Model();
 
-$listCATEGORY		    =  $model->fetchAll($queryMen);
-$theCategoryNu		    =  $model->fetchAll($queryNu);
-$theCategoryNews		=  $model->fetchAll($queryNews);
+$listCATEGORY            =  $model->fetchAll($queryMen);
+$theCategoryNu            =  $model->fetchAll($queryNu);
+$theCategoryNews        =  $model->fetchAll($queryNews);
 
-$xhtmlCATEGORY		= '';
-$xhtmlNu		    = '';
-$xhtmlCateNews		= '';
+$xhtmlCATEGORY        = '';
+$xhtmlNu            = '';
+$xhtmlCateNews        = '';
 
 if (!empty($listCATEGORY)) {
-	foreach ($listCATEGORY as $key => $value) {
-		$name  = $value['name'];
-        $id    = $value['id'];
-        $nameURL		= URL::filterURL($name);    
-        $link	 		= URL::createLink('shop', 'product', 'index', array('category_id' => $id), "$nameURL-$id.html");
-            $xhtmlCATEGORY .= sprintf('<li class="nav-item">
-			<a class="nav-link" href="%s">%s</a></li>',$link,$name);
-	}
+    foreach ($listCATEGORY as $key => $value) {
+        $name           = $value['name'];
+        $id             = $value['id'];
+        $fell           = $value['fell'];
+        $nameURL        = URL::filterURL($name);
+        $link             = URL::createLink('shop', 'product', 'index', array('category_id' => $id), "$nameURL-$id.html");
+        $xhtmlCATEGORY .= sprintf('<li class="nav-item">
+			<a class="nav-link" href="%s">%s</a></li>', $link, $name);
+    }
 }
 $xhtmlNu = '';
 if (!empty($theCategoryNu)) {
@@ -69,7 +70,18 @@ if (!empty($theCategoryNews)) {
                 </li>
             </ul>
         </div>
+        <?php
+        $cart    = Session::get('cart');
 
+        $totalItems        = 0;
+        $totalPrices    = 0;
+
+        if (!empty($cart)) {
+            $totalItems        = array_sum($cart['quantity']);
+            $totalPrices    = array_sum($cart['price']);
+        }
+        $linkViewCart        = URL::createLink('shop', 'user', 'cart', null, 'cart.html');
+        ?>
         <div class="col-lg-5 pr-0">
             <ul class="nav navbar-nav navbar-right right_nav pull-right">
                 <li class="nav-item" style="padding-top: 20px;">
@@ -79,15 +91,9 @@ if (!empty($theCategoryNews)) {
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a href="cart.php" class="icons">
+                    <a href="<?php echo $linkViewCart ?>" class="icons">
                         <i class="ti-shopping-cart"></i>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a href="heart.php" class="icons">
-                        <i class="ti-heart" aria-hidden="true"></i>
-                    </a>
+                    </a> <?php echo $totalItems;?> x items
                 </li>
             </ul>
         </div>
@@ -96,4 +102,4 @@ if (!empty($theCategoryNews)) {
 </nav>
 </div>
 </div>
-</header> 
+</header>

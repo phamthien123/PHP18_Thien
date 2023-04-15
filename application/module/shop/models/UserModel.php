@@ -40,8 +40,8 @@ class UserModel extends Model{
 				$ids	.= " '0')" ;
 			
 				$query[]	= "SELECT `b`.`id`, `b`.`name`, `b`.`picture`, `b`.`category_id`, `c`.`name` AS `category_name`";
-				$query[]	= "FROM `".TBL_BOOK."` AS `b`, `".TBL_CATEGORY."` AS `c`";
-				$query[]	= "WHERE `b`.`status`  = 1 AND  `c`.`id` = `b`.`category_id` AND `b`.`id` IN $ids";
+				$query[]	= "FROM `".TBL_PRODUCTS."` AS `b`, `".TBL_CATEGORY."` AS `c`";
+				$query[]	= "WHERE `b`.`status`  = 0 AND  `c`.`id` = `b`.`category_id` AND `b`.`id` IN $ids";
 				$query[]	= "ORDER BY `b`.`ordering` ASC";
 		
 				$query		= implode(" ", $query);

@@ -15,8 +15,8 @@ class Controller{
 	
 	// Pagination
 	protected $_pagination	= array(
-									'totalItemsPerPage'	=> 3,
-									'pageRange'			=> 2,
+									'totalItemsPerPage'	=> 2,
+									'pageRange'			=> 3,
 								);
 	
 	public function __construct($arrParams){
@@ -81,7 +81,7 @@ class Controller{
 		$this->_pagination['totalItemsPerPage'] = $config['totalItemsPerPage'];
 		$this->_pagination['pageRange']			= $config['pageRange'];
 		$this->_arrParam['pagination']			= $this->_pagination;
-		$this->_view->arrParam					=$this->_arrParam;
+		$this->_view->arrParam					= $this->_arrParam;
 	}
 	
 }

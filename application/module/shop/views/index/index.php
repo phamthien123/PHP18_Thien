@@ -3,21 +3,22 @@
 $xhtmlProminent = '';
 if (!empty($this->theProminent)) {
     foreach ($this->theProminent as $key => $value) {
+
         $name  = $value['name'];
         $price  = $value['price'];
         $picture         = Helper::createImage('shop', '98x150-', $value['picture']);
+        $link  = URL::createLink('shop', 'product', 'detail', array('category_id' => $value['category_id'], 'product_id' => $value['id']));
+
         $xhtmlProminent .= sprintf(' <div class="col-lg-4 col-md-6">
         <div class="single-product">
           <div class="product-img">
-            <img class="img-fluid w-100" %s 
+            <img class="img-fluid w-100" %s />
             <div class="p_icon">
-              <a href="#"><i class="ti-eye"></i></a>
-              <a href="#"><i class="ti-heart"></i></a>
-              <a href="#"><i class="ti-shopping-cart"></i></a>
+              <a href="%s"><i class="ti-eye"></i></a>
             </div>
           </div>
           <div class="product-btm">
-            <a href="#" class="d-block">
+            <a href="%s" class="d-block">
               <h4>%s</h4>
             </a>
             <div class="mt-3">
@@ -26,7 +27,7 @@ if (!empty($this->theProminent)) {
             </div>
           </div>
         </div>
-      </div>', $picture, $name, $price);
+      </div>', $picture,$link,$link,$name, $price);
     }
 }
 $xhtmlProductDesc = '';
@@ -35,18 +36,17 @@ if (!empty($this->theProductDesc)) {
         $name  = $value['name'];
         $price  = $value['price'];
         $picture         = Helper::createImage('shop', '98x150-', $value['picture']);
+        $link  = URL::createLink('shop', 'product', 'detail', array('category_id' => $value['category_id'], 'product_id' => $value['id']));
         $xhtmlProductDesc .= sprintf('<div class="col-lg-6 col-md-6">
         <div class="single-product">
           <div class="product-img">
-            <img class="img-fluid w-100" %s
+            <img class="img-fluid w-100" %s/>
             <div class="p_icon">
-              <a href="single-product.php"><i class="ti-eye"></i></a>
-              <a href="#"><i class="ti-heart"></i></a>
-              <a href="#"><i class="ti-shopping-cart"></i></a>
+              <a href="%s"><i class="ti-eye"></i></a>
             </div>
           </div>
           <div class="product-btm">
-            <a href="#" class="d-block">
+            <a href="%s" class="d-block">
               <h4>%s</h4>
             </a>
             <div class="mt-3">
@@ -55,7 +55,7 @@ if (!empty($this->theProductDesc)) {
             </div>
           </div>
         </div>
-      </div>', $picture, $name, $price);
+      </div>', $picture,$link,$link, $name, $price);
     }
 }
 
@@ -68,7 +68,7 @@ if (!empty($this->theListNews)) {
         $xhtmlNews  .= sprintf(' <div class="col-lg-4 col-md-6">
         <div class="single-blog">
             <div class="thumb">
-                <img class="img-fluid" %s
+                <img class="img-fluid" %s/>
             </div>
             <div class="short_details">
                 <a class="d-block" href="single-blog.html">

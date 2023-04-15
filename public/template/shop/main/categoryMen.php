@@ -6,7 +6,6 @@
 	  <?php echo $this->_metaName;?>
    <?php echo $this->_title;?>
     <?php echo $this->_cssFiles;?>
-    <?php echo $this->_VFiles;?>
 </head>
 
 <body>

@@ -3,7 +3,7 @@ class UserController extends Controller{
 	
 	public function __construct($arrParams){
 		parent::__construct($arrParams);
-		$this->_templateObj->setFolderTemplate('default/main/');
+		$this->_templateObj->setFolderTemplate('shop/main/');
 		$this->_templateObj->setFileTemplate('index.php');
 		$this->_templateObj->setFileConfig('template.ini');
 		$this->_templateObj->load();
@@ -22,8 +22,9 @@ class UserController extends Controller{
 	
 	public function orderAction(){
 		$cart	= Session::get('cart');
-		$bookID	= $this->_arrParam['book_id'];
+		$bookID	= $this->_arrParam['product_id'];
 		$price	= $this->_arrParam['price'];
+		$catID	= $this->_arrParam['category_id'];
 		
 		if(empty($cart)){
 			$cart['quantity'][$bookID]	= 1;
@@ -39,18 +40,18 @@ class UserController extends Controller{
 		}
 		
 		Session::set('cart', $cart);
-		URL::redirect('default', 'book', 'detail', array('book_id' => $bookID));
+		URL::redirect('shop', 'product', 'detail', array('product_id' => $bookID,'category_id' => $catID));
 	}
 
-	public function historyAction(){
-		$this->_view->_title	= 'History';
-		$this->_view->Items		= $this->_model->listItem($this->_arrParam, array('task' => 'history-cart'));
-		$this->_view->render('user/history');
-	}
+	// public function historyAction(){
+	// 	$this->_view->_title	= 'History';
+	// 	$this->_view->Items		= $this->_model->listItem($this->_arrParam, array('task' => 'history-cart'));
+	// 	$this->_view->render('user/history');
+	// }
 	
-	public function buyAction(){
-		$this->_model->saveItem($this->_arrParam, array('task' => 'submit-cart'));
-		URL::redirect('default', 'index', 'index');
-	}
+	// public function buyAction(){
+	// 	$this->_model->saveItem($this->_arrParam, array('task' => 'submit-cart'));
+	// 	URL::redirect('default', 'index', 'index');
+	// }
 }
 
